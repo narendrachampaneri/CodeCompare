@@ -369,6 +369,12 @@ void MainWindow::setFolders(const QString& left, const QString& right) {
     rightCombo_->setCurrentText(QDir::toNativeSeparators(right));
 }
 
+void MainWindow::setLeftFolder(const QString& left) {
+    leftCombo_->setCurrentText(QDir::toNativeSeparators(left));
+    rightCombo_->setCurrentText(QString());
+    rightCombo_->setFocus();
+}
+
 void MainWindow::browse(QComboBox* combo) {
     const QString start = cleanPath(combo->currentText());
     const QString dir = QFileDialog::getExistingDirectory(this, tr("Select folder"), start);

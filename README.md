@@ -2,11 +2,14 @@
 
 ## Download (for users – no Qt, no build needed)
 
-1. Download **[CodeCompare-v0.1.0-windows-x64.zip](https://github.com/narendrachampaneri/CodeCompare/releases/latest)** from the *Assets* section of the latest release. Do not download "Source code (zip)", which is only for developers.
-2. Unzip it anywhere.
-3. Double-click **`CodeCompare.exe`**.
+Go to the **[latest release](https://github.com/narendrachampaneri/CodeCompare/releases/latest)** and, under *Assets*, pick one:
 
-The zip already contains everything the app needs (Qt libraries included). If Windows SmartScreen appears, click *More info → Run anyway*.
+| File | What you get |
+|---|---|
+| **`CodeCompare-x.y.z-Setup.exe`** (recommended) | A normal Windows installer: next → next → finish. It adds Start-menu and desktop shortcuts and an uninstaller, and can add **"Compare with CodeCompare"** to the folder right-click menu. No admin rights are needed. |
+| `CodeCompare-x.y.z-windows-x64-portable.zip` | The portable version. Unzip it anywhere (even a USB stick) and run `CodeCompare.exe`. Nothing is installed. |
+
+Do not download "Source code (zip)", which is only for developers. If Windows SmartScreen appears, click *More info → Run anyway*. This happens because the app is new and not code-signed.
 
 > `setup_qt.bat` and `build_windows.bat` are **only for developers** who want to build the app from source.
 

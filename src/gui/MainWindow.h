@@ -27,6 +27,7 @@ public:
     ~MainWindow() override;
 
     void setFolders(const QString& left, const QString& right);
+    void setLeftFolder(const QString& left);
     // Select an entry by relative path ('/' separators). Returns false if not shown.
     bool selectRelativePath(const QString& relPath);
 

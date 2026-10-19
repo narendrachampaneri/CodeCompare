@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(CodeCompare
-    VERSION 0.1.0
+    VERSION 0.1.1
     DESCRIPTION "Folder and line-by-line code comparison tool"
     LANGUAGES CXX)
 
