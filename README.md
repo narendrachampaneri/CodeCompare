@@ -1,6 +1,14 @@
 # CodeCompare
 
-**Download:** get the latest `CodeCompare-vX.Y.Z-windows-x64.zip` from the [Releases](../../releases) page, unzip it and run `CodeCompare.exe`. No installation is needed.
+## Download (for users – no Qt, no build needed)
+
+1. Download **[CodeCompare-v0.1.0-windows-x64.zip](https://github.com/narendrachampaneri/CodeCompare/releases/latest)** from the *Assets* section of the latest release. Do not download "Source code (zip)", which is only for developers.
+2. Unzip it anywhere.
+3. Double-click **`CodeCompare.exe`**.
+
+The zip already contains everything the app needs (Qt libraries included). If Windows SmartScreen appears, click *More info → Run anyway*.
+
+> `setup_qt.bat` and `build_windows.bat` are **only for developers** who want to build the app from source.
 
 An offline Windows desktop tool that compares two folders or workspaces and shows exactly what changed. It lists every file that was added, deleted or modified, then shows each changed file side by side, line by line, with the changed words highlighted inside each line.
 
