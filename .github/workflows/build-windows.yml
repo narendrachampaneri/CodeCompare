@@ -1,0 +1,70 @@
+# Builds CodeCompare.exe on GitHub's Windows machines.
+#  * Every push / pull request: build + run tests, the ready-to-run folder is
+#    attached to the run as the "CodeCompare-windows" artifact.
+#  * Pushing a version tag (e.g. v0.1.0): additionally creates a GitHub Release
+#    with CodeCompare-<version>-windows-x64.zip that anyone can download.
+name: Build Windows
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write   # needed to create the Release on tags
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Unit tests
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item build/CodeCompare.exe dist/
+          Copy-Item build/codecompare-cli.exe dist/
+          Copy-Item README.md, LICENSE dist/
+          windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw dist/CodeCompare.exe
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CodeCompare-windows
+          path: dist
+
+      - name: Zip for release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: Compress-Archive -Path dist/* -DestinationPath "CodeCompare-${{ github.ref_name }}-windows-x64.zip"
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: CodeCompare-${{ github.ref_name }}-windows-x64.zip
+          generate_release_notes: true
